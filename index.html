@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auxilio Juridico</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@700&display=swap"
+    rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/img/logo.png" />
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body class="ui-sans bg-white text-slate-800 antialiased">
+
+  <!-- ========================================
+       BARRA DE NAVEGACIÓN SUPERIOR
+       ======================================== -->
+  <header class="bg-[color:var(--navy)] text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+
+        <!-- Logo y nombre de la empresa -->
+        <div class="flex items-center gap-3 md:gap-4">
+          <img class="w-10 h-10 md:w-12 md:h-12" src="assets/img/logo.png" alt="Logo" />
+
+          <div class="hidden sm:block">
+            <div class="text-xs md:text-sm font-semibold">Centro de Conciliación y Arbitraje</div>
+            <div class="text-xs text-white/80 flex items-center gap-1">
+              <i class="fa-solid fa-map-marker-alt text-[10px]"></i>
+              <span>Servicios a Nivel Nacional</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navegación desktop -->
+        <nav class="hidden lg:flex items-center gap-6 text-sm">
+          <a href="#servicios"
+            class="hover:text-[color:var(--accent-yellow)] smooth-transition flex items-center gap-2 ">
+            <i class="fa-solid fa-briefcase text-xs"></i>
+            Servicios
+          </a>
+          <a href="#tarifas" class="hover:text-[color:var(--accent-yellow)] smooth-transition flex items-center gap-2">
+            <i class="fa-solid fa-tag text-xs"></i>
+            Tarifas
+          </a>
+          <a href="#contacto" class="hover:text-[color:var(--accent-yellow)] smooth-transition flex items-center gap-2">
+            <i class="fa-solid fa-envelope text-xs"></i>
+            Contacto
+          </a>
+          <a href="#ubicacion"
+            class="hover:text-[color:var(--accent-yellow)] smooth-transition flex items-center gap-2">
+            <i class="fa-solid fa-map-location-dot text-xs"></i>
+            Ubicación
+          </a>
+          <a href="#galeria" class="hover:text-[color:var(--accent-yellow)] smooth-transition flex items-center gap-2">
+            <i class="fa-solid fa-images text-xs"></i>
+            Galería
+          </a>
+          <a target="_blank"
+            href="https://api.whatsapp.com/send?phone=573153090617&text=Hola%20buen%20d%C3%ADa%2C%20estoy%20interesado%20en%20uno%20de%20sus%20servicios"
+            class="bg-white/10 px-4 py-2 rounded-full text-white hover:bg-white/20 smooth-transition flex items-center gap-2">
+            <i class="fa-brands fa-whatsapp"></i>
+            WhatsApp
+          </a>
+        </nav>
+
+        <!-- Botón de menú móvil -->
+        <div class="lg:hidden">
+          <button id="menuToggle" aria-label="menu"
+            class="py-2 px-4 rounded-md bg-white/10 hover:bg-white/20 smooth-transition">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================
+       MENÚ OFFCANVAS MÓVIL (estilo Bootstrap)
+       ======================================== -->
+  <!-- Overlay oscuro de fondo -->
+  <div id="menuOverlay" class="menu-overlay hidden fixed inset-0 bg-black/50 z-50"></div>
+
+  <!-- Panel lateral del menú -->
+  <div id="offcanvasMenu" class="offcanvas-menu fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-50">
+    <div class="flex flex-col h-full">
+
+      <!-- Header del menú -->
+      <div class="flex items-center justify-between p-4 border-b border-slate-200 bg-[color:var(--navy)] text-white">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+            <i class="fa-solid fa-balance-scale"></i>
+          </div>
+          <span class="font-semibold text-sm">Menú</span>
+        </div>
+        <button id="menuClose" class="py-2 px-4 hover:bg-white/10 rounded-lg smooth-transition">
+          <i class="fa-solid fa-times text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Navegación del menú -->
+      <nav class="flex-1 overflow-y-auto p-4">
+        <ul class="space-y-2">
+          <li>
+            <a href="#servicios"
+              class="menu-link flex items-center gap-3 p-4 rounded-lg hover:bg-slate-100 smooth-transition text-[color:var(--navy)]">
+              <i class="fa-solid fa-briefcase text-lg"></i>
+              <span class="font-medium">Servicios</span>
+            </a>
+          </li>
+          <li>
+            <a href="#tarifas"
+              class="menu-link flex items-center gap-3 p-4 rounded-lg hover:bg-slate-100 smooth-transition text-[color:var(--navy)]">
+              <i class="fa-solid fa-tag text-lg"></i>
+              <span class="font-medium">Tarifas</span>
+            </a>
+          </li>
+          <li>
+            <a href="#contacto"
+              class="menu-link flex items-center gap-3 p-4 rounded-lg hover:bg-slate-100 smooth-transition text-[color:var(--navy)]">
+              <i class="fa-solid fa-envelope text-lg"></i>
+              <span class="font-medium">Contacto</span>
+            </a>
+          </li>
+          <li>
+            <a href="#ubicacion"
+              class="menu-link flex items-center gap-3 p-4 rounded-lg hover:bg-slate-100 smooth-transition text-[color:var(--navy)]">
+              <i class="fa-solid fa-map-location-dot text-lg"></i>
+              <span class="font-medium">Ubicación</span>
+            </a>
+          </li>
+          <li>
+            <a href="#galeria"
+              class="menu-link flex items-center gap-3 p-4 rounded-lg hover:bg-slate-100 smooth-transition text-[color:var(--navy)]">
+              <i class="fa-solid fa-images text-lg"></i>
+              <span class="font-medium">Galería</span>
+            </a>
+          </li>
+          <li class="pt-4 border-t border-slate-200 mt-4">
+            <a target="_blank"
+              href="https://api.whatsapp.com/send?phone=573153090617&text=Hola%20buen%20d%C3%ADa%2C%20estoy%20interesado%20en%20uno%20de%20sus%20servicios"
+              class="flex items-center gap-3 p-4 rounded-lg bg-green-500 text-white hover:bg-green-600 smooth-transition">
+              <i class="fa-brands fa-whatsapp text-lg"></i>
+              <span class="font-medium">WhatsApp</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Footer del menú -->
+      <div class="p-4 border-t border-slate-200 bg-slate-50">
+        <p class="text-xs text-slate-600 text-center">
+          <i class="fa-solid fa-phone"></i> 315 309 0617
+        </p>
+        <p class="text-xs text-slate-500 text-center mt-1">Servicios a Nivel Nacional</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================
+       SECCIÓN HERO (BANNER PRINCIPAL CON PATRÓN)
+       ======================================== -->
+  <section class="pattern-balance-svg relative">
+    <!-- Imagen de fondo -->
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('img/fondo.png');"></div>
+
+    <!-- Overlay para mejor legibilidad -->
+    <div class="absolute inset-0 bg-gradient-to-b from-white/95 via-white/90 to-white/95 pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+
+      <!-- Contenido principal del hero -->
+      <div class="pt-8 pb-6 sm:pt-12 sm:pb-8 lg:pt-20 lg:pb-12 text-center">
+
+        <!-- Logo encima del título -->
+        <div class="mb-6 flex justify-center">
+          <img src="assets/img/logo.png" alt="Logo Centro de Conciliación"
+            class="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain drop-shadow-lg" />
+        </div>
+
+        <!-- Título principal -->
+        <h1
+          class="serif-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight text-[color:var(--navy)] font-bold px-4">
+          Auxilio Juridico -
+          <span class="block sm:inline">Centro de Conciliación y Arbitraje</span>
+        </h1>
+
+        <!-- Subtítulo con badge informativo -->
+        <div class="mt-4 flex flex-col items-center gap-2">
+          <p class="text-slate-600 text-sm sm:text-base flex items-center gap-2">
+            <i class="fa-solid fa-globe text-[color:var(--navy)]"></i>
+            <span>Servicios a Nivel Nacional</span>
+          </p>
+          <div
+            class="inline-flex items-center gap-2 bg-[color:var(--accent-yellow)]/20 text-[color:var(--navy)] px-3 py-1 rounded-full text-xs font-semibold">
+            <i class="fa-solid fa-circle-check"></i>
+            Resolución 0728 de MinJusticia
+          </div>
+        </div>
+
+        <!-- Botones de llamada a la acción -->
+        <div class="mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
+          <a href="#contacto"
+            class="inline-flex items-center justify-center gap-2 bg-[color:var(--navy)] text-white px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:opacity-95 smooth-transition text-sm sm:text-base font-semibold">
+            <i class="fa-solid fa-phone-volume"></i>
+            ¿Buscas una asesoría?
+          </a>
+          <a href="#servicios"
+            class="inline-flex items-center justify-center gap-2 border-2 border-slate-300 px-5 py-3 rounded-full text-[color:var(--navy)] bg-white hover:bg-slate-50 hover:border-[color:var(--navy)] smooth-transition text-sm sm:text-base font-semibold">
+            <i class="fa-solid fa-circle-info"></i>
+            Nuestros Servicios
+          </a>
+        </div>
+
+      </div>
+
+      <!-- ========================================
+           TARJETAS DE SERVICIOS
+           ======================================== -->
+      <div class="pb-0 sm:pb-6">
+        <div class="bg-[color:var(--soft-gray)] py-8 sm:py-10 rounded-t-2xl">
+
+          <!-- Título de la sección de servicios -->
+          <div class="text-center mb-6 px-4">
+            <h3 id="servicios"
+              class="text-xl sm:text-2xl font-bold text-[color:var(--navy)] flex items-center justify-center gap-2">
+              <i class="fa-solid fa-star-of-life text-sm"></i>
+              Nuestros Servicios
+            </h3>
+            <p class="text-slate-600 text-sm mt-2">Soluciones profesionales adaptadas a tus necesidades</p>
+          </div>
+
+          <!-- ========================================
+             GRID DE TARJETA DE SERVICIOS
+             ======================================== -->
+          <div
+            class="mt-6 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-6">
+
+            <!-- TARJETA 1: Alimentos -->
+            <article
+              class="bg-white rounded-xl p-5 sm:p-6 shadow-md border border-slate-100 hover:shadow-xl hover:scale-105 smooth-transition">
+              <div
+                class="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[color:var(--navy)]/10 to-[color:var(--navy)]/5 border-2 border-[color:var(--navy)]/20 mx-auto text-[color:var(--navy)]">
+                <i class="fa-solid fa-bowl-food text-xl sm:text-2xl"></i>
+              </div>
+              <h4 class="text-center mt-4 text-[color:var(--navy)] font-bold text-base sm:text-lg">Alimentos</h4>
+              <p class="mt-3 text-xs sm:text-sm text-slate-600 text-center leading-relaxed">Conciliación de cuotas
+                alimentarias, regulación de visitas y custodia de menores.</p>
+            </article>
+
+            <!-- TARJETA 2: Unión y Disolución -->
+            <article
+              class="bg-white rounded-xl p-5 sm:p-6 shadow-md border border-slate-100 hover:shadow-xl hover:scale-105 smooth-transition">
+              <div
+                class="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[color:var(--navy)]/10 to-[color:var(--navy)]/5 border-2 border-[color:var(--navy)]/20 mx-auto text-[color:var(--navy)]">
+                <i class="fa-solid fa-hands-holding-circle text-xl sm:text-2xl"></i>
+              </div>
+              <h4 class="text-center mt-4 text-[color:var(--navy)] font-bold text-base sm:text-lg">Uniones Maritales
+              </h4>
+              <p class="mt-3 text-xs sm:text-sm text-slate-600 text-center leading-relaxed">Declaración y disolución de
+                uniones maritales de hecho. Liquidación de sociedad patrimonial.</p>
+            </article>
+
+            <!-- TARJETA 3: Restituciones Inmuebles -->
+            <article
+              class="bg-white rounded-xl p-5 sm:p-6 shadow-md border border-slate-100 hover:shadow-xl hover:scale-105 smooth-transition">
+              <div
+                class="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[color:var(--navy)]/10 to-[color:var(--navy)]/5 border-2 border-[color:var(--navy)]/20 mx-auto text-[color:var(--navy)]">
+                <i class="fa-solid fa-house-circle-check text-xl sm:text-2xl"></i>
+              </div>
+              <h4 class="text-center mt-4 text-[color:var(--navy)] font-bold text-base sm:text-lg">Restituciones
+                Inmuebles Express
+              </h4>
+              <p class="mt-3 text-xs sm:text-sm text-slate-600 text-center leading-relaxed">Procedimiento especial de
+                restitución de inmuebles arrendados. Trámite ágil para desalojos según Ley 446 de 1998.</p>
+              <div
+                class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap justify-center gap-2 text-xs text-slate-500">
+                <span class="inline-flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-full">
+                  <i class="fa-solid fa-file-lines text-[color:var(--navy)]"></i>
+                  Ley 446
+                </span>
+                <span class="inline-flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-full">
+                  <i class="fa-regular fa-calendar text-[color:var(--navy)]"></i>
+                  De 1998
+                </span>
+              </div>
+            </article>
+
+            <!-- TARJETA 4: Audiencias Adulto Mayor -->
+            <article
+              class="bg-white rounded-xl p-5 sm:p-6 shadow-md border border-slate-100 hover:shadow-xl hover:scale-105 smooth-transition">
+              <div
+                class="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[color:var(--navy)]/10 to-[color:var(--navy)]/5 border-2 border-[color:var(--navy)]/20 mx-auto text-[color:var(--navy)]">
+                <i class="fa-solid fa-user-shield text-xl sm:text-2xl"></i>
+              </div>
+              <h4 class="text-center mt-4 text-[color:var(--navy)] font-bold text-base sm:text-lg">Acompañamiento Adulto
+                Mayor
+              </h4>
+              <p class="mt-3 text-xs sm:text-sm text-slate-600 text-center leading-relaxed">Audiencias especiales para
+                protección de derechos y patrimonio del adulto mayor según Ley 1850 de 2017.</p>
+              <div
+                class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap justify-center gap-2 text-xs text-slate-500">
+                <span class="inline-flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-full">
+                  <i class="fa-solid fa-file-lines text-[color:var(--navy)]"></i>
+                  Ley 1850
+                </span>
+                <span class="inline-flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-full">
+                  <i class="fa-regular fa-calendar text-[color:var(--navy)]"></i>
+                  De 2017
+                </span>
+              </div>
+            </article>
+
+            <!-- TARJETA 5: Insolvencia Persona Natural -->
+            <article
+              class="bg-white rounded-xl p-5 sm:p-6 shadow-md border border-slate-100 hover:shadow-xl hover:scale-105 smooth-transition">
+              <div
+                class="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[color:var(--navy)]/10 to-[color:var(--navy)]/5 border-2 border-[color:var(--navy)]/20 mx-auto text-[color:var(--navy)]">
+                <i class="fa-solid fa-user-tie text-xl sm:text-2xl"></i>
+              </div>
+              <h4 class="text-center mt-4 text-[color:var(--navy)] font-bold text-base sm:text-lg">Insolvencia Persona
+                Natural
+              </h4>
+              <p class="mt-3 text-xs sm:text-sm text-slate-600 text-center leading-relaxed">Negociación de deudas y
+                reorganización financiera para personas naturales no comerciantes.</p>
+            </article>
+
+            <!-- TARJETA 6: Insolvencia Pequeños Comerciantes -->
+            <article
+              class="bg-white rounded-xl p-5 sm:p-6 shadow-md border border-slate-100 hover:shadow-xl hover:scale-105 smooth-transition">
+              <div
+                class="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[color:var(--navy)]/10 to-[color:var(--navy)]/5 border-2 border-[color:var(--navy)]/20 mx-auto text-[color:var(--navy)]">
+                <i class="fa-solid fa-store text-xl sm:text-2xl"></i>
+              </div>
+              <h4 class="text-center mt-4 text-[color:var(--navy)] font-bold text-base sm:text-lg">Insolvencia Pequeños
+                Comerciantes
+              </h4>
+              <p class="mt-3 text-xs sm:text-sm text-slate-600 text-center leading-relaxed">Proceso de insolvencia para
+                pequeños empresarios con activos limitados. Reorganización financiera según Ley 2445 de 2025.</p>
+              <div
+                class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap justify-center gap-2 text-xs text-slate-500">
+                <span class="inline-flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-full">
+                  <i class="fa-solid fa-file-lines text-[color:var(--navy)]"></i>
+                  Ley 2445
+                </span>
+                <span class="inline-flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-full">
+                  <i class="fa-regular fa-calendar text-[color:var(--navy)]"></i>
+                  Feb 2025
+                </span>
+              </div>
+            </article>
+
+            <!-- Columna vacía para centrar la tarjeta 7 en tablet -->
+            <article class="hidden lg:block"></article>
+
+            <!-- TARJETA 7: Accidentes de Tránsito -->
+            <article
+              class="bg-white rounded-xl p-5 sm:p-6 shadow-md border border-slate-100 hover:shadow-xl hover:scale-105 smooth-transition">
+              <div
+                class="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[color:var(--navy)]/10 to-[color:var(--navy)]/5 border-2 border-[color:var(--navy)]/20 mx-auto text-[color:var(--navy)]">
+                <i class="fa-solid fa-car-burst text-xl sm:text-2xl"></i>
+              </div>
+              <h4 class="text-center mt-4 text-[color:var(--navy)] font-bold text-base sm:text-lg">Accidentes de
+                Tránsito
+              </h4>
+              <p class="mt-3 text-xs sm:text-sm text-slate-600 text-center leading-relaxed">Conciliación de
+                reclamaciones por daños materiales y personales derivados de accidentes de tránsito según Código
+                Nacional de Tránsito.</p>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- ========================================
+             BANNER DE TARIFAS Y CONTACTO
+             ======================================== -->
+        <div id="tarifas"
+          class="bg-gradient-to-r from-[color:var(--navy)] to-[#1a4d6f] text-white mt-0 rounded-b-2xl overflow-hidden shadow-2xl">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+
+            <!-- Título de la sección -->
+            <div class="text-center mb-6">
+              <div
+                class="inline-flex items-center gap-2 text-sm uppercase tracking-wide text-[color:var(--accent-yellow)] font-bold mb-2">
+                <i class="fa-solid fa-coins"></i>
+                Tarifas Diferenciales Según Estrato Social
+              </div>
+            </div>
+
+            <!-- Grid de tarifas -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 max-w-6xl mx-auto">
+
+              <!-- Tarifa 1: Alimentos -->
+              <div
+                class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 hover:bg-white/15 smooth-transition">
+                <div class="flex items-center gap-3 mb-2">
+                  <div
+                    class="w-10 h-10 bg-[color:var(--accent-yellow)]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-bowl-food text-[color:var(--accent-yellow)]"></i>
+                  </div>
+                  <h4 class="font-bold text-base">Conciliación en Alimentos</h4>
+                </div>
+                <p class="text-xs text-white/80 leading-relaxed mb-3">Acuerdos sobre cuota alimentaria, regulación de
+                  visitas y custodia de menores según Ley 640 de 2001.</p>
+                <div class="text-2xl sm:text-3xl font-bold">$270.000</div>
+                <p class="text-xs text-white/70 mt-2">Tarifa básica</p>
+              </div>
+
+              <!-- Tarifa 2: Civil -->
+              <div
+                class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 hover:bg-white/15 smooth-transition">
+                <div class="flex items-center gap-3 mb-2">
+                  <div
+                    class="w-10 h-10 bg-[color:var(--accent-yellow)]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-scale-balanced text-[color:var(--accent-yellow)]"></i>
+                  </div>
+                  <h4 class="font-bold text-base">Conciliación en Civil</h4>
+                </div>
+                <p class="text-xs text-white/80 leading-relaxed mb-3">Resolución de conflictos patrimoniales, contratos,
+                  sucesiones y disputas entre particulares de naturaleza civil.</p>
+                <div class="text-2xl sm:text-3xl font-bold">$330.000</div>
+                <p class="text-xs text-white/70 mt-2">Tarifa básica</p>
+              </div>
+
+              <!-- Tarifa 3: Adulto Mayor -->
+              <div
+                class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 hover:bg-white/15 smooth-transition">
+                <div class="flex items-center gap-3 mb-2">
+                  <div
+                    class="w-10 h-10 bg-[color:var(--accent-yellow)]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-user-shield text-[color:var(--accent-yellow)]"></i>
+                  </div>
+                  <h4 class="font-bold text-base">Acompañamiento Adulto Mayor</h4>
+                </div>
+                <p class="text-xs text-white/80 leading-relaxed mb-3">Audiencias de acompañamiento para protección de
+                  derechos del adulto mayor según Ley 1850 de 2017.</p>
+                <div class="text-2xl sm:text-3xl font-bold">$480.000</div>
+                <p class="text-xs text-white/70 mt-2">Tarifa básica</p>
+              </div>
+
+              <!-- Tarifa 4: Insolvencia Persona Natural -->
+              <div
+                class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 hover:bg-white/15 smooth-transition">
+                <div class="flex items-center gap-3 mb-2">
+                  <div
+                    class="w-10 h-10 bg-[color:var(--accent-yellow)]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-handshake-angle text-[color:var(--accent-yellow)]"></i>
+                  </div>
+                  <h4 class="font-bold text-base">Insolvencia Persona Natural</h4>
+                </div>
+                <p class="text-xs text-white/80 leading-relaxed mb-3">Negociación de deudas y acuerdos de reorganización
+                  financiera para personas naturales no comerciantes según Ley 1380.</p>
+                <div class="text-2xl sm:text-3xl font-bold">$2.000.000</div>
+                <p class="text-xs text-white/70 mt-2">Tarifa básica</p>
+              </div>
+
+              <!-- Tarifa 5: Insolvencia Pequeño Comerciante -->
+              <div
+                class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 hover:bg-white/15 smooth-transition">
+                <div class="flex items-center gap-3 mb-2">
+                  <div
+                    class="w-10 h-10 bg-[color:var(--accent-yellow)]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-store text-[color:var(--accent-yellow)]"></i>
+                  </div>
+                  <h4 class="font-bold text-base">Insolvencia Pequeño Comerciante</h4>
+                </div>
+                <p class="text-xs text-white/80 leading-relaxed mb-3">Proceso de insolvencia para pequeños empresarios y
+                  comerciantes con activos limitados según Ley 2445 de 2025.</p>
+                <div class="text-2xl sm:text-3xl font-bold">$2.500.000</div>
+                <p class="text-xs text-white/70 mt-2">Tarifa básica</p>
+              </div>
+
+              <!-- Tarifa 6: Arbitraje -->
+              <div
+                class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 hover:bg-white/15 smooth-transition">
+                <div class="flex items-center gap-3 mb-2">
+                  <div
+                    class="w-10 h-10 bg-[color:var(--accent-yellow)]/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-gavel text-[color:var(--accent-yellow)]"></i>
+                  </div>
+                  <h4 class="font-bold text-base">Arbitraje</h4>
+                </div>
+                <p class="text-xs text-white/80 leading-relaxed mb-3">Tribunal de arbitramento para resolución
+                  definitiva de controversias con laudo arbitral vinculante según Ley 1563.</p>
+                <div class="text-2xl sm:text-3xl font-bold">$4.500.000</div>
+                <p class="text-xs text-white/70 mt-2">Tarifa básica</p>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       SECCIÓN DE CONTACTO
+       ======================================== -->
+  <section id="contacto" class="py-12 sm:py-16 bg-gradient-to-b from-white to-slate-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+
+      <!-- Título de la sección -->
+      <div class="text-center mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-[color:var(--navy)] flex items-center justify-center gap-2">
+          <i class="fa-solid fa-paper-plane"></i>
+          Contáctanos
+        </h2>
+        <p class="text-slate-600 mt-2 text-sm sm:text-base">Estamos listos para ayudarte con tu caso</p>
+      </div>
+
+      <!-- Grid de métodos de contacto -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+
+        <!-- WhatsApp -->
+        <a target="_blank"
+          href="https://api.whatsapp.com/send?phone=573153090617&text=Hola%20buen%20d%C3%ADa%2C%20estoy%20interesado%20en%20uno%20de%20sus%20servicios"
+          class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl smooth-transition text-center border border-slate-100 hover:border-green-500 hover:scale-105 cursor-pointer group">
+          <div
+            class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-green-500 smooth-transition">
+            <i class="fa-brands fa-whatsapp text-2xl text-green-600 group-hover:text-white smooth-transition"></i>
+          </div>
+          <h3 class="font-semibold text-[color:var(--navy)] mb-2">WhatsApp</h3>
+          <p class="text-sm text-slate-600 mb-3">Respuesta inmediata</p>
+          <span class="text-green-600 font-semibold text-sm group-hover:underline">315 309 0617</span>
+        </a>
+
+        <!-- Teléfono -->
+        <a href="tel:+573153090617"
+          class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl smooth-transition text-center border border-slate-100 hover:border-blue-500 hover:scale-105 cursor-pointer group">
+          <div
+            class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-blue-500 smooth-transition">
+            <i class="fa-solid fa-phone text-2xl text-blue-600 group-hover:text-white smooth-transition"></i>
+          </div>
+          <h3 class="font-semibold text-[color:var(--navy)] mb-2">Teléfono</h3>
+          <p class="text-sm text-slate-600 mb-3">Llámanos directamente</p>
+          <span class="text-blue-600 font-semibold text-sm group-hover:underline">315 309 0617</span>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:corprofesionales@outlook.com"
+          class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl smooth-transition text-center border border-slate-100 hover:border-purple-500 hover:scale-105 cursor-pointer group sm:col-span-2 lg:col-span-1">
+          <div
+            class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-purple-500 smooth-transition">
+            <i class="fa-solid fa-envelope text-2xl text-purple-600 group-hover:text-white smooth-transition"></i>
+          </div>
+          <h3 class="font-semibold text-[color:var(--navy)] mb-2">Email</h3>
+          <p class="text-sm text-slate-600 mb-3">Escríbenos tu consulta</p>
+          <span
+            class="text-purple-600 font-semibold text-sm group-hover:underline break-all">corprofesionales@outlook.com</span>
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================
+       SECCIÓN DE UBICACIÓN CON MAPA
+       ======================================== -->
+  <section id="ubicacion" class="py-12 sm:py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+      <!-- Título de la sección -->
+      <div class="text-center mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-[color:var(--navy)] flex items-center justify-center gap-2">
+          <i class="fa-solid fa-map-location-dot"></i>
+          Nuestra Ubicación
+        </h2>
+        <p class="text-slate-600 mt-2 text-sm sm:text-base">Visítanos en nuestras oficinas</p>
+      </div>
+
+      <!-- Contenedor del mapa y la información -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-start">
+
+        <!-- Información de la ubicación -->
+        <div class="space-y-6">
+
+          <!-- Tarjeta de dirección -->
+          <div
+            class="bg-gradient-to-br from-[color:var(--navy)] to-[#1a4d6f] rounded-2xl p-6 sm:p-8 text-white shadow-xl">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-building text-2xl"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg mb-2">Dirección</h3>
+                <p class="text-white/90 text-sm leading-relaxed mb-4">
+                  Calle 19 # 6 - 68, Of. 501<br>
+                  Edificio Ángel<br>
+                  Bogotá D.C., Colombia
+                </p>
+
+                <p class="text-white/90 text-sm leading-relaxed font-bold"> Próximamente en Cajica, Cundinamarca.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Horarios de atención -->
+          <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+            <div class="flex items-start gap-4">
+              <div
+                class="w-12 h-12 bg-[color:var(--navy)]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-clock text-2xl text-[color:var(--navy)]"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-[color:var(--navy)] text-lg mb-3">Horario de Atención</h3>
+                <div class="space-y-2 text-sm text-slate-700">
+                  <div class="flex justify-between items-center gap-6">
+                    <span class="font-medium">Lunes - Viernes:</span>
+                    <span>9:00 AM</span>
+                    -
+                    <span>5:00 PM</span>
+                  </div>
+                  <div class="flex justify-between items-center gap-4 text-slate-500">
+                    <span class="font-medium">Sábados:</span>
+                    <span>Cerrado</span>
+                  </div>
+                  <div class="flex justify-between items-center gap-4 text-slate-500">
+                    <span class="font-medium">Domingos:</span>
+                    <span>Cerrado</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón para abrir en Google Maps -->
+          <a href="https://www.google.com/maps/place/Edificio+%C3%81ngel+-/@4.6053565,-74.0715606,21z/data=!4m6!3m5!1s0x8e3f99a18bb77619:0xbdd71908e60e4303!8m2!3d4.6053578!4d-74.071545!16s%2Fg%2F11bw3y8v0v?entry=ttu"
+            target="_blank"
+            class="block w-full bg-white border-2 border-[color:var(--navy)] text-[color:var(--navy)] px-6 py-3 rounded-full font-semibold text-center hover:bg-[color:var(--navy)] hover:text-white smooth-transition shadow-md hover:shadow-xl">
+            <i class="fa-solid fa-directions mr-2"></i>
+            Abrir en Google Maps
+          </a>
+
+        </div>
+
+        <!-- Contenedor del mapa con diseño moderno -->
+        <div class="relative group">
+          <!-- Marco decorativo -->
+          <div
+            class="absolute -inset-1 bg-gradient-to-r from-[color:var(--navy)] to-[#1a4d6f] rounded-2xl blur opacity-25 group-hover:opacity-40 smooth-transition">
+          </div>
+
+          <!-- Contenedor del iframe -->
+          <div class="relative bg-white rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+            <div class="aspect-[4/3] w-full">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d591.175177264227!2d-74.0715605757192!3d4.6053565070333295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99a18bb77619%3A0xbdd71908e60e4303!2sEdificio%20%C3%81ngel%20-!5e0!3m2!1ses!2sco!4v1761072751904!5m2!1ses!2sco"
+                width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade" class="w-full h-full"></iframe>
+            </div>
+          </div>
+
+          <!-- Badge flotante -->
+          <div
+            class="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-full shadow-lg flex items-center gap-2 text-xs font-semibold text-[color:var(--navy)]">
+            <i class="fa-solid fa-location-dot text-red-500"></i>
+            <span>Estamos aquí</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================
+     SECCIÓN DE GALERÍA / IMÁGENES
+     ======================================== -->
+  <section id="galeria" class="py-12 sm:py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+      <!-- Título de la sección -->
+      <div class="text-center mb-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-[color:var(--navy)] flex items-center justify-center gap-2">
+          <i class="fa-solid fa-images"></i>
+          Galería
+        </h2>
+        <p class="text-slate-600 mt-2 text-sm sm:text-base">Conoce nuestras instalaciones y servicios</p>
+      </div>
+
+      <!-- Grid de imágenes -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+
+        <!-- Card 1 -->
+        <div class="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-xl smooth-transition group">
+          <div class="aspect-square overflow-hidden rounded-lg bg-slate-100">
+            <img src="assets/img/pictures/img1.png" alt="Imagen 1"
+              class="w-full h-full object-cover group-hover:scale-110 smooth-transition" />
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-xl smooth-transition group">
+          <div class="aspect-square overflow-hidden rounded-lg bg-slate-100">
+            <img src="assets/img/pictures/img2.png" alt="Imagen 2"
+              class="w-full h-full object-cover group-hover:scale-110 smooth-transition" />
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-xl smooth-transition group">
+          <div class="aspect-square overflow-hidden rounded-lg bg-slate-100">
+            <img src="assets/img/pictures/img3.png" alt="Imagen 3"
+              class="w-full h-full object-cover group-hover:scale-110 smooth-transition" />
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-xl smooth-transition group">
+          <div class="aspect-square overflow-hidden rounded-lg bg-slate-100">
+            <img src="assets/img/pictures/img4.png" alt="Imagen 4"
+              class="w-full h-full object-cover group-hover:scale-110 smooth-transition" />
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="bg-white rounded-xl p-3 sm:p-4 shadow-md hover:shadow-xl smooth-transition group">
+          <div class="aspect-square overflow-hidden rounded-lg bg-slate-100">
+            <img src="assets/img/pictures/img5.png" alt="Imagen 5"
+              class="w-full h-full object-cover group-hover:scale-110 smooth-transition" />
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================
+       BOTÓN FLOTANTE DE WHATSAPP
+       ======================================== -->
+  <a target="_blank"
+    href="https://api.whatsapp.com/send?phone=573153090617&text=Hola%20buen%20d%C3%ADa%2C%20estoy%20interesado%20en%20uno%20de%20sus%20servicios"
+    class="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50 inline-flex items-center gap-2 bg-green-500 text-white px-4 py-3 rounded-full shadow-2xl hover:bg-green-600 smooth-transition animate-pulse-soft">
+    <i class="fa-brands fa-whatsapp text-xl sm:text-2xl"></i>
+    <span class="text-xs sm:text-sm font-bold">Chatear</span>
+  </a>
+
+  <!-- ========================================
+       PIE DE PÁGINA
+       ======================================== -->
+  <footer class="bg-[color:var(--navy)] text-white mt-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+
+      <!-- Grid del footer -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
+
+        <!-- Columna 1: Logo e información -->
+        <div>
+          <div class="flex items-center justify-center md:justify-start gap-3 mb-3">
+            <img src="assets/img/logo.png" alt="Logo Auxilio Juridico" class="w-10 h-10 object-contain" />
+            <div class="text-sm font-semibold">Auxilio Juridico</div>
+          </div>
+          <p class="text-xs text-white/80 leading-relaxed">Servicios a nivel nacional • Ley 2213 de 2022 • Audiencias
+            Virtuales</p>
+        </div>
+
+        <!-- Columna 2: Enlaces rápidos -->
+        <div>
+          <h4 class="font-semibold mb-3 text-sm flex items-center justify-center md:justify-start gap-2">
+            <i class="fa-solid fa-link"></i>
+            Enlaces Rápidos
+          </h4>
+          <ul class="space-y-2 text-xs text-white/80">
+            <li><a href="#servicios" class="hover:text-white smooth-transition">Servicios</a></li>
+            <li><a href="#tarifas" class="hover:text-white smooth-transition">Tarifas</a></li>
+            <li><a href="#contacto" class="hover:text-white smooth-transition">Contacto</a></li>
+            <li><a href="#ubicacion" class="hover:text-white smooth-transition">Ubicación</a></li>
+            <li><a href="#galeria" class="hover:text-white smooth-transition">Galería</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Línea divisoria -->
+      <div class="border-t border-white/10 mt-8 pt-6 text-center">
+        <p class="text-xs text-white/70">
+          <i class="fa-regular fa-copyright"></i>
+          <span id="year"></span> Auxilio Juridico • Centro de Conciliación y Arbitraje • Todos
+          los derechos reservados
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- JavaScript principal -->
+  <script src="assets/js/script.js"></script>
+
+</body>
+
+</html>
